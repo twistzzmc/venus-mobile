@@ -58,14 +58,25 @@ class ItemList extends StatelessWidget {
   }
 }
 
-class Item extends StatelessWidget {
+class Item extends StatefulWidget {
   final String label;
 
   const Item({required Key key, required this.label}) : super(key: key);
 
   @override
+  State<Item> createState() => _ItemState();
+}
+
+class _ItemState extends State<Item> {
+  bool? _value = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Row(
-        children: [const Checkbox(onChanged: null, value: false), Text(label)]);
+    return Row(children: [
+      Checkbox(
+          value: _value,
+          onChanged: (newVal) => setState(() => _value = newVal)),
+      Text(widget.label)
+    ]);
   }
 }
